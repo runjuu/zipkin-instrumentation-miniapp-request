@@ -1,0 +1,6 @@
+[submodule "wx-queue-request"]
+	path = wx-queue-request
+	url = https://github.com/zhengjunxin/wx-queue-request.git
+[submodule "zipkin-js"]
+	path = zipkin-js
+	url = https://github.com/openzipkin/zipkin-js.git
