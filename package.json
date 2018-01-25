@@ -1,0 +1,20 @@
+{
+  "name": "zipkin-instrumentation-miniapp-request",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://Runjuu@github.com/Runjuu/zipkin-instrumentation-miniapp-request.git"
+  },
+  "keywords": [],
+  "author": "Runjuu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Runjuu/zipkin-instrumentation-miniapp-request/issues"
+  },
+  "homepage": "https://github.com/Runjuu/zipkin-instrumentation-miniapp-request#readme"
+}
