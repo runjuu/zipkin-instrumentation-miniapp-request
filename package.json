@@ -16,5 +16,11 @@
   "bugs": {
     "url": "https://github.com/Runjuu/zipkin-instrumentation-miniapp-request/issues"
   },
-  "homepage": "https://github.com/Runjuu/zipkin-instrumentation-miniapp-request#readme"
+  "homepage": "https://github.com/Runjuu/zipkin-instrumentation-miniapp-request#readme",
+  "devDependencies": {
+    "webpack": "^3.10.0"
+  },
+  "dependencies": {
+    "zipkin": "^0.11.2"
+  }
 }
