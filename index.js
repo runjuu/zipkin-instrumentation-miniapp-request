@@ -70,7 +70,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 12);
+/******/ 	return __webpack_require__(__webpack_require__.s = 13);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -214,7 +214,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var InetAddress = __webpack_require__(5);
+var InetAddress = __webpack_require__(6);
 
 var SimpleAnnotation = function () {
   function SimpleAnnotation() {
@@ -599,6 +599,53 @@ module.exports = {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+
+
+var option = __webpack_require__(0);
+
+var Annotation = __webpack_require__(1);
+var Tracer = __webpack_require__(8);
+var createNoopTracer = __webpack_require__(18);
+var TraceId = __webpack_require__(2);
+var sampler = __webpack_require__(9);
+
+var HttpHeaders = __webpack_require__(4);
+var InetAddress = __webpack_require__(6);
+
+var BatchRecorder = __webpack_require__(19);
+var ConsoleRecorder = __webpack_require__(20);
+
+var ExplicitContext = __webpack_require__(11);
+
+var Request = __webpack_require__(12);
+var Instrumentation = __webpack_require__(21);
+
+var model = __webpack_require__(3);
+var jsonEncoder = __webpack_require__(24);
+
+module.exports = {
+  Tracer: Tracer,
+  createNoopTracer: createNoopTracer,
+  TraceId: TraceId,
+  option: option,
+  Annotation: Annotation,
+  InetAddress: InetAddress,
+  HttpHeaders: HttpHeaders,
+  BatchRecorder: BatchRecorder,
+  ConsoleRecorder: ConsoleRecorder,
+  ExplicitContext: ExplicitContext,
+  sampler: sampler,
+  Request: Request,
+  Instrumentation: Instrumentation,
+  model: model,
+  jsonEncoder: jsonEncoder
+};
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -665,10 +712,10 @@ InetAddress.getLocalAddress = function getLocalAddress() {
 };
 
 module.exports = InetAddress;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -858,7 +905,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -873,7 +920,7 @@ var _require = __webpack_require__(0),
     Some = _require.Some,
     fromNullable = _require.fromNullable;
 
-var _require2 = __webpack_require__(8),
+var _require2 = __webpack_require__(9),
     Sampler = _require2.Sampler,
     alwaysSample = _require2.alwaysSample;
 
@@ -882,7 +929,7 @@ var Record = __webpack_require__(15);
 var TraceId = __webpack_require__(2);
 var randomTraceId = __webpack_require__(16);
 
-var _require3 = __webpack_require__(9),
+var _require3 = __webpack_require__(10),
     now = _require3.now,
     hrtime = _require3.hrtime;
 
@@ -1119,7 +1166,7 @@ var Tracer = function () {
 module.exports = Tracer;
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1224,7 +1271,7 @@ var CountingSampler = function (_Sampler) {
 module.exports = { Sampler: Sampler, CountingSampler: CountingSampler, neverSample: neverSample, alwaysSample: alwaysSample };
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1256,10 +1303,10 @@ module.exports.hrtime = hrTimeSupport ? function () {
 } : function () {
   return undefined;
 };
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1310,7 +1357,7 @@ module.exports = function () {
 }();
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1343,11 +1390,11 @@ module.exports = {
 };
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const zipkin = __webpack_require__(13);
-const transport = __webpack_require__(25);
+const zipkin = __webpack_require__(5);
+const HttpLogger = __webpack_require__(25);
 
 const { Instrumentation } = zipkin;
 
@@ -1383,53 +1430,7 @@ function wrapRequest({tracer, serviceName, remoteServiceName}) {
 }
 
 module.exports.wrapRequest = wrapRequest;
-
-/***/ }),
-/* 13 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var option = __webpack_require__(0);
-
-var Annotation = __webpack_require__(1);
-var Tracer = __webpack_require__(7);
-var createNoopTracer = __webpack_require__(18);
-var TraceId = __webpack_require__(2);
-var sampler = __webpack_require__(8);
-
-var HttpHeaders = __webpack_require__(4);
-var InetAddress = __webpack_require__(5);
-
-var BatchRecorder = __webpack_require__(19);
-var ConsoleRecorder = __webpack_require__(20);
-
-var ExplicitContext = __webpack_require__(10);
-
-var Request = __webpack_require__(11);
-var Instrumentation = __webpack_require__(21);
-
-var model = __webpack_require__(3);
-var jsonEncoder = __webpack_require__(24);
-
-module.exports = {
-  Tracer: Tracer,
-  createNoopTracer: createNoopTracer,
-  TraceId: TraceId,
-  option: option,
-  Annotation: Annotation,
-  InetAddress: InetAddress,
-  HttpHeaders: HttpHeaders,
-  BatchRecorder: BatchRecorder,
-  ConsoleRecorder: ConsoleRecorder,
-  ExplicitContext: ExplicitContext,
-  sampler: sampler,
-  Request: Request,
-  Instrumentation: Instrumentation,
-  model: model,
-  jsonEncoder: jsonEncoder
-};
+module.exports.HttpLogger = HttpLogger;
 
 /***/ }),
 /* 14 */
@@ -1517,8 +1518,8 @@ function isPromise(obj) {
 "use strict";
 
 
-var Tracer = __webpack_require__(7);
-var ExplicitContext = __webpack_require__(10);
+var Tracer = __webpack_require__(8);
+var ExplicitContext = __webpack_require__(11);
 
 module.exports = function createNoopTracer() {
   var recorder = {
@@ -1539,7 +1540,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var _require = __webpack_require__(9),
+var _require = __webpack_require__(10),
     now = _require.now,
     hrtime = _require.hrtime;
 
@@ -1897,7 +1898,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var Annotation = __webpack_require__(1);
-var Request = __webpack_require__(11);
+var Request = __webpack_require__(12);
 
 function requiredArg(name) {
   throw new Error('HttpClientInstrumentation: Missing required argument ' + name + '.');
@@ -2129,9 +2130,54 @@ module.exports.JSON_V2 = {
 
 /***/ }),
 /* 25 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
+const { jsonEncoder: { JSON_V1 } } = __webpack_require__(5);
 
+class HttpLogger {
+  constructor({endpoint, headers = {}, httpInterval = 1000, jsonEncoder = JSON_V1, timeout = 0}) {
+    this.queue = [];
+    this.endpoint = endpoint;
+    this.jsonEncoder = jsonEncoder;
+
+    this.headers = Object.assign({ 'content-type': 'application/json' }, headers);
+
+    // req/res timeout in ms, it resets on redirect. 0 to disable (OS limit applies)
+    // only supported by node-fetch; silently ignored by browser fetch clients
+    // @see https://github.com/bitinn/node-fetch#fetch-options
+    this.timeout = timeout;
+
+    this.timer = setInterval(this.processQueue.bind(this), httpInterval);
+  }
+
+  logSpan(span) {
+    this.queue.push(this.jsonEncoder.encode(span));
+  }
+
+  processQueue() {
+    if (this.queue.length > 0) {
+      wx.request({
+        url: this.endpoint,
+        data: this.queue,
+        header: this.headers,
+        timeout: this.timeout,
+        success(response) {
+          if (response.statusCode !== 202) {
+            console.error('Unexpected response while sending Zipkin data, status:' +
+              `${response.statusCode}, body: ${response.data}`);
+          }
+        },
+        fail(error) {
+          console.error('Error sending Zipkin data', error);
+        },
+      });
+
+      this.queue.length = 0;
+    }
+  }
+}
+
+module.exports = HttpLogger;
 
 /***/ })
 /******/ ]);

@@ -1,5 +1,5 @@
 const zipkin = require('zipkin');
-const transport = require('./transport-http');
+const HttpLogger = require('./httpLogger');
 
 const { Instrumentation } = zipkin;
 
@@ -35,3 +35,4 @@ function wrapRequest({tracer, serviceName, remoteServiceName}) {
 }
 
 module.exports.wrapRequest = wrapRequest;
+module.exports.HttpLogger = HttpLogger;
