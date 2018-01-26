@@ -1,6 +1,12 @@
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+
 module.exports = {
-  entry: './index.js',
+  entry: './src/index.js',
   output: {
-    filename: 'bundle.js'
-  }
+    filename: 'index.js',
+    libraryTarget: 'umd'
+  },
+  plugins: [
+    // new UglifyJsPlugin()
+  ]
 };
