@@ -12,12 +12,14 @@ function wrapRequest({tracer, serviceName, remoteServiceName}) {
       const zipkinOpts = instrumentation.recordRequest(config, config.url, method);
       const traceId = tracer.id;
 
+      Object.assign(zipkinOpts.header, zipkinOpts.headers);
+
       const { success, fail } = zipkinOpts;
 
       const finalConfig = Object.assign({}, zipkinOpts, {
         success(res) {
           tracer.scoped(() => {
-            instrumentation.recordResponse(traceId, res.statusCode); // TODO fetch 的 res.status 是什么
+            instrumentation.recordResponse(traceId, res.statusCode);
           });
           success(res)
         },
@@ -35,4 +37,6 @@ function wrapRequest({tracer, serviceName, remoteServiceName}) {
 }
 
 module.exports.wrapRequest = wrapRequest;
-module.exports.HttpLogger = HttpLogger;
+module.exports.zipkin = Object.assign({}, zipkin, {
+  HttpLogger,
+});
