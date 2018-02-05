@@ -22,9 +22,11 @@ class HttpLogger {
 
   processQueue() {
     if (this.queue.length > 0) {
+      const postBody = `[${this.queue.join(',')}]`;
       wx.request({
+        method: 'POST',
         url: this.endpoint,
-        data: this.queue,
+        data: postBody,
         header: this.headers,
         timeout: this.timeout,
         success(response) {
