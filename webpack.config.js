@@ -7,6 +7,6 @@ module.exports = {
     libraryTarget: 'umd'
   },
   plugins: [
-    // new UglifyJsPlugin()
+    new UglifyJsPlugin()
   ]
 };
