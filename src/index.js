@@ -12,7 +12,7 @@ function wrapRequest({tracer, serviceName, remoteServiceName}) {
       const zipkinOpts = instrumentation.recordRequest(config, config.url, method);
       const traceId = tracer.id;
 
-      Object.assign(zipkinOpts.header, zipkinOpts.headers);
+      zipkinOpts.header = Object.assign({}, zipkinOpts.header, zipkinOpts.headers);
 
       const { success, fail } = zipkinOpts;
 
