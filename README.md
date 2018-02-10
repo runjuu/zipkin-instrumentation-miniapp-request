@@ -27,7 +27,7 @@ const tracer = new Tracer({
 });
 
 const zipkinRequest = wrapRequest({ tracer, serviceName: "小程序名称", remoteServiceName: "服务器名称" });
-// https://mp.weixin.qq.com/debug/wxadoc/dev/api/network-request.html
+// zipkinRequest 使用方式和 wx.request 一样
 ```
 
 ## 无法使用 npm ?
