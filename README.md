@@ -38,4 +38,9 @@ const zipkinRequest = wrapRequest({ tracer, serviceName: "小程序名称", remo
 ## 无法使用 npm ?
 直接将[打包好的文件](https://github.com/Runjuu/zipkin-instrumentation-miniapp-request/blob/master/index.js)放入小程序开发目录，使用相对路径进行引用
 
+## 为什么要填两次「小程序名称」？
+https://github.com/openzipkin/zipkin-js/blob/master/packages/zipkin/src/instrumentation/httpClient.js#L11
+
+如果不填，默认就会使用`tracer`中的 localServiceName 字段
+
 ###### [Zipkin.js](https://github.com/openzipkin/zipkin-js)
