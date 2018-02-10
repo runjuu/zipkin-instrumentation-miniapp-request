@@ -1,5 +1,5 @@
-const zipkin = require('zipkin');
-const HttpLogger = require('./httpLogger');
+import zipkin from 'zipkin';
+import HttpLogger from './httpLogger';
 
 const { Instrumentation } = zipkin;
 
@@ -36,7 +36,7 @@ function wrapRequest({tracer, serviceName, remoteServiceName}) {
   };
 }
 
-module.exports.wrapRequest = wrapRequest;
-module.exports.zipkin = Object.assign({}, zipkin, {
-  HttpLogger,
-});
+export default {
+  wrapRequest,
+  zipkin: Object.assign({}, zipkin, { HttpLogger })
+};

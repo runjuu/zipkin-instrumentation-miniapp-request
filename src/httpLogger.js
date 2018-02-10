@@ -1,4 +1,6 @@
-const { jsonEncoder: { JSON_V1 } } = require('zipkin');
+import zipkin from 'zipkin';
+
+const { jsonEncoder: { JSON_V1 } } = zipkin;
 
 class HttpLogger {
   constructor({endpoint, headers = {}, httpInterval = 1000, jsonEncoder = JSON_V1, timeout = 0}) {
@@ -45,4 +47,4 @@ class HttpLogger {
   }
 }
 
-module.exports = HttpLogger;
+export default HttpLogger;

@@ -1,1 +1,1739 @@
-!function(t,e){if("object"==typeof exports&&"object"==typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var n=e();for(var r in n)("object"==typeof exports?exports:t)[r]=n[r]}}("undefined"!=typeof self?self:this,function(){return function(t){var e={};function n(r){if(e[r])return e[r].exports;var o=e[r]={i:r,l:!1,exports:{}};return t[r].call(o.exports,o,o.exports,n),o.l=!0,o.exports}return n.m=t,n.c=e,n.d=function(t,e,r){n.o(t,e)||Object.defineProperty(t,e,{configurable:!1,enumerable:!0,get:r})},n.n=function(t){var e=t&&t.__esModule?function(){return t.default}:function(){return t};return n.d(e,"a",e),e},n.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},n.p="",n(n.s=13)}([function(t,e,n){"use strict";var r=function(){function t(t,e){for(var n=0;n<e.length;n++){var r=e[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(t,r.key,r)}}return function(e,n,r){return n&&t(e.prototype,n),r&&t(e,r),e}}();var o={get type(){return"None"},map:function(){return o},ifPresent:function(){},flatMap:function(){return o},getOrElse:function(t){return t instanceof Function?t():t},equals:function(t){return"None"===t.type},toString:function(){return"None"},get present(){return!1}},i=function(){function t(e){!function(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}(this,t),this.value=e}return r(t,[{key:"map",value:function(e){return new t(e(this.value))}},{key:"ifPresent",value:function(t){return this.map(t)}},{key:"flatMap",value:function(t){return this.map(t).getOrElse(o)}},{key:"getOrElse",value:function(){return this.value}},{key:"equals",value:function(e){return e instanceof t&&e.value===this.value}},{key:"toString",value:function(){return"Some("+this.value.toString()+")"}},{key:"present",get:function(){return!0}},{key:"type",get:function(){return"Some"}}]),t}();function a(t){return null!=t&&(t instanceof i||t===o||"Some"===t.type||"None"===t.type)}t.exports.Some=i,t.exports.None=o,t.exports.verifyIsOptional=function(t){if(null==t)throw new Error("Error: data is not Optional - it's null");if(!a(t))throw new Error("Error: data ("+t+") is not an Option!");if(a(t.value))throw new Error("Error: data ("+t.value.toString()+") is wrapped in Option twice")},t.exports.fromNullable=function(t){return null!=t?new i(t):o}},function(t,e,n){"use strict";var r=function(){function t(t,e){for(var n=0;n<e.length;n++){var r=e[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(t,r.key,r)}}return function(e,n,r){return n&&t(e.prototype,n),r&&t(e,r),e}}();function o(t,e){if(!t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!e||"object"!=typeof e&&"function"!=typeof e?t:e}function i(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function, not "+typeof e);t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,enumerable:!1,writable:!0,configurable:!0}}),e&&(Object.setPrototypeOf?Object.setPrototypeOf(t,e):t.__proto__=e)}function a(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}var s=n(6),c=function(){function t(){a(this,t)}return r(t,[{key:"toString",value:function(){return this.annotationType+"()"}}]),t}(),u=function(t){function e(){return a(this,e),o(this,(e.__proto__||Object.getPrototypeOf(e)).apply(this,arguments))}return i(e,c),e}(),p=function(t){function e(){return a(this,e),o(this,(e.__proto__||Object.getPrototypeOf(e)).apply(this,arguments))}return i(e,c),e}(),l=function(t){function e(){return a(this,e),o(this,(e.__proto__||Object.getPrototypeOf(e)).apply(this,arguments))}return i(e,c),e}(),d=function(t){function e(){return a(this,e),o(this,(e.__proto__||Object.getPrototypeOf(e)).apply(this,arguments))}return i(e,c),e}();function f(t){this.name=t}f.prototype.toString=function(){return'LocalOperationStart("'+this.name+'")'};var h=function(t){function e(){return a(this,e),o(this,(e.__proto__||Object.getPrototypeOf(e)).apply(this,arguments))}return i(e,c),e}();function v(t){this.message=t}function m(t){this.serviceName=t}function y(t){this.name=t}function g(t){var e=t.host,n=t.port;this.host=e,this.port=n}function S(t){var e=t.serviceName,n=t.host,r=t.port;this.serviceName=e,this.host=n||void 0,this.port=r||0}function w(t){var e=t.host,n=t.port;this.host=e||s.getLocalAddress(),this.port=n||0}function b(t,e){this.key=t,this.value=e}v.prototype.toString=function(){return'Message("'+this.message+'")'},m.prototype.toString=function(){return'ServiceName("'+this.serviceName+'")'},y.prototype.toString=function(){return'Rpc("'+this.name+'")'},g.prototype.toString=function(){return'ClientAddr(host="'+this.host+'", port='+this.port+")"},S.prototype.toString=function(){return'ServerAddr(serviceName="'+this.serviceName+'", host="'+this.host+'", port='+this.port+")"},w.prototype.toString=function(){return'LocalAddr(host="'+this.host.toString()+'", port='+this.port+")"},b.prototype.toString=function(){return"BinaryAnnotation("+this.key+'="'+this.value+'")'};var I={ClientSend:u,ClientRecv:p,ServerSend:l,ServerRecv:d,Message:v,ServiceName:m,Rpc:y,ClientAddr:g,ServerAddr:S,LocalAddr:w,BinaryAnnotation:b,LocalOperationStart:f,LocalOperationStop:h};Object.keys(I).forEach(function(t){I[t].prototype.annotationType=t}),t.exports=I},function(t,e,n){"use strict";var r=function(){function t(t,e){for(var n=0;n<e.length;n++){var r=e[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(t,r.key,r)}}return function(e,n,r){return n&&t(e.prototype,n),r&&t(e,r),e}}();var o=n(0),i=o.Some,a=o.None,s=o.verifyIsOptional,c=function(){function t(e){!function(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}(this,t);var n=e.traceId,r=void 0===n?a:n,o=e.parentId,i=void 0===o?a:o,c=e.spanId,u=e.sampled,p=void 0===u?a:u,l=e.flags,d=void 0===l?0:l;s(r),s(i),s(p),this._traceId=r,this._parentId=i,this._spanId=c,this._sampled=p,this._flags=d}return r(t,[{key:"isDebug",value:function(){return 1==(1&this._flags)}},{key:"toString",value:function(){return"TraceId(spanId="+this.spanId.toString()+", parentId="+this.parentId.toString()+", traceId="+this.traceId.toString()+")"}},{key:"spanId",get:function(){return this._spanId}},{key:"parentId",get:function(){return this._parentId.getOrElse(this.spanId)}},{key:"traceId",get:function(){return this._traceId.getOrElse(this.parentId)}},{key:"sampled",get:function(){return this.isDebug()?new i(!0):this._sampled}},{key:"flags",get:function(){return this._flags}}]),t}();t.exports=c},function(t,e,n){"use strict";function r(t){var e=t.serviceName,n=t.ipv4,r=t.port;this.setServiceName(e),this.setIpv4(n),this.setPort(r)}function o(t,e){this.timestamp=t,this.value=e}function i(t){var e=this;this.traceId=t.traceId,t._parentId.ifPresent(function(t){e.parentId=t}),this.id=t.spanId,this.name=void 0,this.kind=void 0,this.timestamp=void 0,this.duration=void 0,this.localEndpoint=void 0,this.remoteEndpoint=void 0,this.annotations=[],this.tags={},this.debug=t.isDebug(),this.shared=!1}r.prototype.setServiceName=function(t){this.serviceName=t?t.toLocaleLowerCase():void 0},r.prototype.setIpv4=function(t){this.ipv4=t},r.prototype.setPort=function(t){this.port=t||void 0},r.prototype.isEmpty=function(){return void 0===this.serviceName&&void 0===this.ipv4&&void 0===this.port},o.prototype.toString=function(){return'Annotation(value="'+this.value+'")'},i.prototype.setName=function(t){this.name=t?t.toLocaleLowerCase():void 0},i.prototype.setKind=function(t){this.kind=t},i.prototype.setTimestamp=function(t){this.timestamp=t},i.prototype.setDuration=function(t){void 0!==t&&(this.duration=Math.max(t,1))},i.prototype.setLocalEndpoint=function(t){t&&!t.isEmpty()?this.localEndpoint=t:this.localEndpoint=void 0},i.prototype.setRemoteEndpoint=function(t){t&&!t.isEmpty()?this.remoteEndpoint=t:this.remoteEndpoint=void 0},i.prototype.addAnnotation=function(t,e){this.annotations.push(new o(t,e))},i.prototype.putTag=function(t,e){this.tags[t]=e},i.prototype.setDebug=function(t){this.debug=t},i.prototype.setShared=function(t){this.shared=t},i.prototype.toString=function(){var t=this.annotations.map(function(t){return t.toString()}).join(", ");return"Span(id="+this.traceId+", annotations=["+t+"])"},t.exports.Endpoint=r,t.exports.Span=i},function(t,e,n){"use strict";t.exports={TraceId:"X-B3-TraceId",SpanId:"X-B3-SpanId",ParentSpanId:"X-B3-ParentSpanId",Sampled:"X-B3-Sampled",Flags:"X-B3-Flags"}},function(t,e,n){"use strict";var r=n(0),o=n(1),i=n(8),a=n(18),s=n(2),c=n(9),u=n(4),p=n(6),l=n(19),d=n(20),f=n(11),h=n(12),v=n(21),m=n(3),y=n(24);t.exports={Tracer:i,createNoopTracer:a,TraceId:s,option:r,Annotation:o,InetAddress:p,HttpHeaders:u,BatchRecorder:l,ConsoleRecorder:d,ExplicitContext:f,sampler:c,Request:h,Instrumentation:v,model:m,jsonEncoder:y}},function(t,e,n){"use strict";(function(e){var n="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t},r=function(){function t(t,e){for(var n=0;n<e.length;n++){var r=e[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(t,r.key,r)}}return function(e,n,r){return n&&t(e.prototype,n),r&&t(e,r),e}}();var o=function(){function t(e){!function(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}(this,t),this.addr=e}return r(t,[{key:"ipv4",value:function(){var t=this.toInt();if(t&&0!==t)return this.addr}},{key:"toInt",value:function(){var t=this.addr.split(".");return t[0]<<24|t[1]<<16|t[2]<<8|t[3]}},{key:"toString",value:function(){return"InetAddress("+this.addr+")"}}]),t}();o.getLocalAddress=function(){if(!("object"===(void 0===e?"undefined":n(e))&&"function"==typeof e.on))return new o("127.0.0.1");var t=!function(){var t=new Error('Cannot find module "."');throw t.code="MODULE_NOT_FOUND",t}().call(null,"network-address");return new o(t.ipv4())},t.exports=o}).call(e,n(7))},function(t,e){var n,r,o=t.exports={};function i(){throw new Error("setTimeout has not been defined")}function a(){throw new Error("clearTimeout has not been defined")}function s(t){if(n===setTimeout)return setTimeout(t,0);if((n===i||!n)&&setTimeout)return n=setTimeout,setTimeout(t,0);try{return n(t,0)}catch(e){try{return n.call(null,t,0)}catch(e){return n.call(this,t,0)}}}!function(){try{n="function"==typeof setTimeout?setTimeout:i}catch(t){n=i}try{r="function"==typeof clearTimeout?clearTimeout:a}catch(t){r=a}}();var c,u=[],p=!1,l=-1;function d(){p&&c&&(p=!1,c.length?u=c.concat(u):l=-1,u.length&&f())}function f(){if(!p){var t=s(d);p=!0;for(var e=u.length;e;){for(c=u,u=[];++l<e;)c&&c[l].run();l=-1,e=u.length}c=null,p=!1,function(t){if(r===clearTimeout)return clearTimeout(t);if((r===a||!r)&&clearTimeout)return r=clearTimeout,clearTimeout(t);try{r(t)}catch(e){try{return r.call(null,t)}catch(e){return r.call(this,t)}}}(t)}}function h(t,e){this.fun=t,this.array=e}function v(){}o.nextTick=function(t){var e=new Array(arguments.length-1);if(arguments.length>1)for(var n=1;n<arguments.length;n++)e[n-1]=arguments[n];u.push(new h(t,e)),1!==u.length||p||s(f)},h.prototype.run=function(){this.fun.apply(null,this.array)},o.title="browser",o.browser=!0,o.env={},o.argv=[],o.version="",o.versions={},o.on=v,o.addListener=v,o.once=v,o.off=v,o.removeListener=v,o.removeAllListeners=v,o.emit=v,o.prependListener=v,o.prependOnceListener=v,o.listeners=function(t){return[]},o.binding=function(t){throw new Error("process.binding is not supported")},o.cwd=function(){return"/"},o.chdir=function(t){throw new Error("process.chdir is not supported")},o.umask=function(){return 0}},function(t,e,n){"use strict";var r=function(){function t(t,e){for(var n=0;n<e.length;n++){var r=e[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(t,r.key,r)}}return function(e,n,r){return n&&t(e.prototype,n),r&&t(e,r),e}}();var o=n(0),i=o.None,a=o.Some,s=o.fromNullable,c=n(9),u=c.Sampler,p=c.alwaysSample,l=n(1),d=n(15),f=n(2),h=n(16),v=n(10),m=v.now,y=v.hrtime,g=n(3).Endpoint,S=n(17);function w(t){throw new Error("Tracer: Missing required argument "+t+".")}var b=function(){function t(e){var n=e.ctxImpl,r=void 0===n?w("ctxImpl"):n,o=e.recorder,i=void 0===o?w("recorder"):o,a=e.sampler,s=void 0===a?new u(p):a,c=e.traceId128Bit,l=void 0!==c&&c,d=e.localServiceName,f=e.localEndpoint;!function(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}(this,t),this.recorder=i,this.sampler=s,this.traceId128Bit=l,this._localEndpoint=f||new g({serviceName:d||"unknown"}),this._ctxImpl=r,this._defaultTraceId=this.createRootId(),this._startTimestamp=m(),this._startTick=y()}return r(t,[{key:"scoped",value:function(t){return this._ctxImpl.scoped(t)}},{key:"createRootId",value:function(){var t=h(),e=this.traceId128Bit?new a(h()+t):i,n=new f({traceId:e,parentId:i,spanId:t,sampled:i,flags:0});return n._sampled=this.sampler.shouldSample(n),n}},{key:"createChildId",value:function(){var t=s(this._ctxImpl.getContext()),e=new f({traceId:t.map(function(t){return t.traceId}),parentId:t.map(function(t){return t.spanId}),spanId:h(),sampled:t.flatMap(function(t){return t.sampled}),flags:t.map(function(t){return t.flags}).getOrElse(0)});return!1===e.sampled.present&&(e._sampled=this.sampler.shouldSample(e)),e}},{key:"local",value:function(t,e){var n=this;if("function"!=typeof e)throw new Error("you must pass a function");return this.scoped(function(){var r=n.createChildId();n.setId(r),n.recordServiceName(n._localEndpoint.serviceName),n.recordAnnotation(new l.LocalOperationStart(t));var o=void 0;try{o=e()}catch(t){throw n.recordBinary("error",t.message?t.message:t.toString()),n.recordAnnotation(new l.LocalOperationStop),t}if(!S(o))return n.recordAnnotation(new l.LocalOperationStop),o;if(!r.sampled.getOrElse(!1))return o;var i=function(t){return n.recorder.record(new d({traceId:r,timestamp:m(n._startTimestamp,n._startTick),annotation:t}))};return o.then(function(t){return i(new l.LocalOperationStop),t}).catch(function(t){var e=t.message?t.message:t.toString();throw i(new l.BinaryAnnotation("error",e)),i(new l.LocalOperationStop),t})})}},{key:"letChildId",value:function(t){var e=this;return this.scoped(function(){var n=e.createChildId();return e.setId(n),t(n)})}},{key:"setId",value:function(t){this._ctxImpl.setContext(t)}},{key:"recordAnnotation",value:function(t){var e=this;this.id.sampled.ifPresent(function(n){n&&e.recorder.record(new d({traceId:e.id,timestamp:m(e._startTimestamp,e._startTick),annotation:t}))})}},{key:"recordMessage",value:function(t){this.recordAnnotation(new l.Message(t))}},{key:"recordServiceName",value:function(t){this.recordAnnotation(new l.ServiceName(t))}},{key:"recordRpc",value:function(t){this.recordAnnotation(new l.Rpc(t))}},{key:"recordClientAddr",value:function(t){this.recordAnnotation(new l.ClientAddr(t))}},{key:"recordServerAddr",value:function(t){this.recordAnnotation(new l.ServerAddr(t))}},{key:"recordLocalAddr",value:function(t){this.recordAnnotation(new l.LocalAddr(t))}},{key:"recordBinary",value:function(t,e){this.recordAnnotation(new l.BinaryAnnotation(t,e))}},{key:"writeIdToConsole",value:function(t){console.log(t+": "+this.id.toString())}},{key:"id",get:function(){return this._ctxImpl.getContext()||this._defaultTraceId}},{key:"localEndpoint",get:function(){return this._localEndpoint}}]),t}();t.exports=b},function(t,e,n){"use strict";var r=function(){function t(t,e){for(var n=0;n<e.length;n++){var r=e[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(t,r.key,r)}}return function(e,n,r){return n&&t(e.prototype,n),r&&t(e,r),e}}();function o(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}var i=n(0).Some,a=function(){function t(e){o(this,t),this.evaluator=e}return r(t,[{key:"shouldSample",value:function(t){var e=this,n=t.sampled.getOrElse(function(){return e.evaluator(t)});return new i(n)}},{key:"toString",value:function(){return"Sampler("+this.evaluator.toString()+")"}}]),t}();function s(t){return!1}function c(t){return!0}s.toString=function(){return"never sample"},c.toString=function(){return"always sample"};var u=function(t){function e(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:1;return o(this,e),function(t,e){if(!t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!e||"object"!=typeof e&&"function"!=typeof e?t:e}(this,(e.__proto__||Object.getPrototypeOf(e)).call(this,function(t){if(t<=0)return s;if(t>=1)return c;var e=0,n=parseInt(1/t),r=function(t){var r=0==(e%=n);return e++,r};return r.toString=function(){return"countingSampler: sampleRate="+t},r}(t<1?t:1)))}return function(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function, not "+typeof e);t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,enumerable:!1,writable:!0,configurable:!0}}),e&&(Object.setPrototypeOf?Object.setPrototypeOf(t,e):t.__proto__=e)}(e,a),e}();t.exports={Sampler:a,CountingSampler:u,neverSample:s,alwaysSample:c}},function(t,e,n){"use strict";(function(e){var n=void 0!==e&&e.hrtime;t.exports.now=n?function(t,n){if(t&&n){var r=e.hrtime(n);return t+Math.floor(1e6*r[0]+r[1]/1e3)}return 1e3*Date.now()}:function(){return 1e3*Date.now()},t.exports.hrtime=n?function(){return e.hrtime()}:function(){}}).call(e,n(7))},function(t,e,n){"use strict";var r=function(){function t(t,e){for(var n=0;n<e.length;n++){var r=e[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(t,r.key,r)}}return function(e,n,r){return n&&t(e.prototype,n),r&&t(e,r),e}}();t.exports=function(){function t(){!function(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}(this,t),this.currentCtx=null}return r(t,[{key:"setContext",value:function(t){this.currentCtx=t}},{key:"getContext",value:function(){return this.currentCtx}},{key:"scoped",value:function(t){var e=this.currentCtx,n=t();return this.currentCtx=e,n}},{key:"letContext",value:function(t,e){var n=this;return this.scoped(function(){return n.setContext(t),e()})}}]),t}()},function(t,e,n){"use strict";var r=n(4);t.exports={addZipkinHeaders:function(t,e){var n=function(t,e){var n=t.headers||{};return n[r.TraceId]=e.traceId,n[r.SpanId]=e.spanId,e._parentId.ifPresent(function(t){n[r.ParentSpanId]=t}),e.sampled.ifPresent(function(t){n[r.Sampled]=t?"1":"0"}),n}(t,e);return Object.assign({},t,{headers:n})}}},function(t,e,n){const r=n(5),o=n(25),{Instrumentation:i}=r;t.exports.wrapRequest=function({tracer:t,serviceName:e,remoteServiceName:n}){const r=new i.HttpClient({tracer:t,serviceName:e,remoteServiceName:n});return function(e){t.scoped(()=>{const n=e.method||"GET",o=r.recordRequest(e,e.url,n),i=t.id;o.header=Object.assign({},o.header,o.headers);const{success:a,fail:s}=o,c=Object.assign({},o,{success(e){t.scoped(()=>{r.recordResponse(i,e.statusCode)}),a(e)},fail(e){t.scoped(()=>{r.recordError(i,e)}),s(e)}});wx.request(c)})}},t.exports.zipkin=Object.assign({},r,{HttpLogger:o})},function(t,e){function n(t){throw new Error("Cannot find module '"+t+"'.")}n.keys=function(){return[]},n.resolve=n,t.exports=n,n.id=14},function(t,e,n){"use strict";var r=function(){function t(t,e){for(var n=0;n<e.length;n++){var r=e[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(t,r.key,r)}}return function(e,n,r){return n&&t(e.prototype,n),r&&t(e,r),e}}();var o=function(){function t(e){var n=e.traceId,r=e.timestamp,o=e.annotation;!function(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}(this,t),this.traceId=n,this.timestamp=r,this.annotation=o}return r(t,[{key:"toString",value:function(){return"Record(traceId="+this.traceId.toString()+", annotation="+this.annotation.toString()+")"}}]),t}();t.exports=o},function(t,e,n){"use strict";t.exports=function(){for(var t="",e=0;e<16;e++)t+="0123456789abcdef"[Math.floor(16*Math.random())];return t}},function(t,e){t.exports=function(t){return!!t&&("object"==typeof t||"function"==typeof t)&&"function"==typeof t.then}},function(t,e,n){"use strict";var r=n(8),o=n(11);t.exports=function(){var t=new o;return new r({recorder:{record:function(){}},ctxImpl:t})}},function(t,e,n){"use strict";var r=function(){function t(t,e){for(var n=0;n<e.length;n++){var r=e[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(t,r.key,r)}}return function(e,n,r){return n&&t(e.prototype,n),r&&t(e,r),e}}();var o=n(10),i=o.now,a=o.hrtime,s=n(3),c=s.Span,u=s.Endpoint;function p(t){this.traceId=t,this.startTimestamp=i(),this.startTick=a(),this.delegate=new c(t),this.localEndpoint=new u({})}p.prototype.finish=function(){this.endTimestamp||(this.endTimestamp=i(this.startTimestamp,this.startTick))};var l=function(){function t(e){var n=this,r=e.logger,o=e.timeout,i=void 0===o?6e7:o;!function(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}(this,t),this.logger=r,this.timeout=i,this.partialSpans=new Map;var a=setInterval(function(){n.partialSpans.forEach(function(t,e){n._timedOut(t)&&n._writeSpan(e)})},1e3);a.unref&&a.unref()}return r(t,[{key:"_writeSpan",value:function(t){var e=this.partialSpans.get(t);if(void 0!==e){this.partialSpans.delete(t);var n=e.delegate;n.setLocalEndpoint(e.localEndpoint),e.endTimestamp&&(n.setTimestamp(e.startTimestamp),n.setDuration(e.endTimestamp-e.startTimestamp)),this.logger.logSpan(n)}}},{key:"_updateSpanMap",value:function(t,e){var n=void 0;e(n=this.partialSpans.has(t)?this.partialSpans.get(t):new p(t)),n.endTimestamp?this._writeSpan(t):this.partialSpans.set(t,n)}},{key:"_timedOut",value:function(t){return t.startTimestamp+this.timeout<i()}},{key:"record",value:function(t){var e=t.traceId;this._updateSpanMap(e,function(n){switch(t.annotation.annotationType){case"ClientSend":n.delegate.setKind("CLIENT");break;case"ClientRecv":n.finish(),n.delegate.setKind("CLIENT");break;case"ServerSend":n.finish(),n.delegate.setKind("SERVER");break;case"ServerRecv":n.delegate.setShared(e.parentId!==e.spanId),n.delegate.setKind("CLIENT");break;case"LocalOperationStart":n.delegate.setName(t.annotation.name);break;case"LocalOperationStop":n.finish();break;case"Message":n.delegate.addAnnotation(t.timestamp,t.annotation.message);break;case"Rpc":n.delegate.setName(t.annotation.name);break;case"ServiceName":n.localEndpoint.setServiceName(t.annotation.serviceName);break;case"BinaryAnnotation":n.delegate.putTag(t.annotation.key,t.annotation.value);break;case"LocalAddr":n.localEndpoint.setIpv4(t.annotation.host&&t.annotation.host.ipv4()),n.localEndpoint.setPort(t.annotation.port);break;case"ServerAddr":n.delegate.setKind("CLIENT"),n.delegate.setRemoteEndpoint(new u({serviceName:t.annotation.serviceName,ipv4:t.annotation.host&&t.annotation.host.ipv4(),port:t.annotation.port}))}})}},{key:"toString",value:function(){return"BatchRecorder()"}}]),t}();t.exports=l},function(t,e,n){"use strict";var r=function(){function t(t,e){for(var n=0;n<e.length;n++){var r=e[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(t,r.key,r)}}return function(e,n,r){return n&&t(e.prototype,n),r&&t(e,r),e}}();var o=function(){function t(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:console.log;!function(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}(this,t),this.logger=e}return r(t,[{key:"record",value:function(t){var e=t.traceId;this.logger("Record at (spanId="+e.spanId+", parentId="+e.parentId+", traceId="+e.traceId+"): "+t.annotation.toString())}},{key:"toString",value:function(){return"consoleTracer"}}]),t}();t.exports=o},function(t,e,n){"use strict";var r=n(22),o=n(23);t.exports={HttpServer:r,HttpClient:o}},function(t,e,n){"use strict";var r=function(){function t(t,e){for(var n=0;n<e.length;n++){var r=e[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(t,r.key,r)}}return function(e,n,r){return n&&t(e.prototype,n),r&&t(e,r),e}}();var o=n(4),i=n(0),a=i.Some,s=i.None,c=n(2),u=n(1);function p(t){return"1"===t||"true"===t}function l(t){try{return new a(parseInt(t))}catch(t){return s}}function d(t){throw new Error("HttpServerInstrumentation: Missing required argument "+t+".")}var f=function(){function t(e){var n=e.tracer,r=void 0===n?d("tracer"):n,o=e.serviceName,i=void 0===o?r.localEndpoint.serviceName:o,a=e.port,s=void 0===a?d("port"):a;!function(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}(this,t),this.tracer=r,this.serviceName=i,this.port=s}return r(t,[{key:"_createIdFromHeaders",value:function(t){if(function(t){return t(o.TraceId)!==s&&t(o.SpanId)!==s}(t))return t(o.SpanId).map(function(e){var n=t(o.TraceId),r=t(o.ParentSpanId),i=t(o.Sampled),a=t(o.Flags).flatMap(l).getOrElse(0);return new c({traceId:n,parentId:r,spanId:e,sampled:i.map(p),flags:a})});if(t(o.Flags)!==s){var e=this.tracer.id,n=new c({traceId:e.traceId,parentId:e.parentId,spanId:e.spanId,sampled:e.sampled,flags:t(o.Flags)});return new a(n)}return new a(this.tracer.createRootId())}},{key:"recordRequest",value:function(t,e,n){var r=this;this._createIdFromHeaders(n).ifPresent(function(t){return r.tracer.setId(t)});var i=this.tracer.id;return this.tracer.recordServiceName(this.serviceName),this.tracer.recordRpc(t.toUpperCase()),this.tracer.recordBinary("http.url",e),this.tracer.recordAnnotation(new u.ServerRecv),this.tracer.recordAnnotation(new u.LocalAddr({port:this.port})),0!==i.flags&&null!=i.flags&&this.tracer.recordBinary(o.Flags,i.flags.toString()),i}},{key:"recordResponse",value:function(t,e,n){this.tracer.setId(t),this.tracer.recordBinary("http.status_code",e.toString()),n&&this.tracer.recordBinary("error",n.toString()),this.tracer.recordAnnotation(new u.ServerSend)}}]),t}();t.exports=f},function(t,e,n){"use strict";var r=function(){function t(t,e){for(var n=0;n<e.length;n++){var r=e[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(t,r.key,r)}}return function(e,n,r){return n&&t(e.prototype,n),r&&t(e,r),e}}();var o=n(1),i=n(12);var a=function(){function t(e){var n=e.tracer,r=void 0===n?function(t){throw new Error("HttpClientInstrumentation: Missing required argument "+t+".")}("tracer"):n,o=e.serviceName,i=void 0===o?r.localEndpoint.serviceName:o,a=e.remoteServiceName;!function(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}(this,t),this.tracer=r,this.serviceName=i,this.remoteServiceName=a}return r(t,[{key:"recordRequest",value:function(t,e,n){this.tracer.setId(this.tracer.createChildId());var r=this.tracer.id;return this.tracer.recordServiceName(this.serviceName),this.tracer.recordRpc(n.toUpperCase()),this.tracer.recordBinary("http.url",e),this.tracer.recordAnnotation(new o.ClientSend),this.remoteServiceName&&this.tracer.recordAnnotation(new o.ServerAddr({serviceName:this.remoteServiceName})),i.addZipkinHeaders(t,r)}},{key:"recordResponse",value:function(t,e){this.tracer.setId(t),this.tracer.recordBinary("http.status_code",e.toString()),this.tracer.recordAnnotation(new o.ClientRecv)}},{key:"recordError",value:function(t,e){this.tracer.setId(t),this.tracer.recordBinary("error",e.toString()),this.tracer.recordAnnotation(new o.ClientRecv)}}]),t}();t.exports=a},function(t,e,n){"use strict";function r(t){if(void 0!==t){var e={serviceName:t.serviceName||""};return t.ipv4&&(e.ipv4=t.ipv4),t.port&&(e.port=t.port),e}}t.exports.JSON_V1={encode:function(t){return function(t){var e={traceId:t.traceId};t.parentId&&(e.parentId=t.parentId),e.id=t.id,e.name=t.name||"",t.shared||(e.timestamp=t.timestamp,e.duration=t.duration);var n=r(t.localEndpoint),o=void 0,i=void 0,a=void 0;switch(t.kind){case"CLIENT":o=t.timestamp?"cs":void 0,i="cr",a="sa";break;case"SERVER":o=t.timestamp?"sr":void 0,i="ss",a="ca"}(t.annotations.length>0||o)&&(e.annotations=t.annotations.map(function(t){return function(t,e){return{value:t.value,timestamp:t.timestamp,endpoint:e}}(t,n)})),o&&(e.annotations.push({value:o,timestamp:t.timestamp,endpoint:n}),t.duration&&e.annotations.push({value:i,timestamp:t.timestamp+t.duration,endpoint:n}));var s=Object.keys(t.tags);if((s.length>0||t.remoteEndpoint)&&(e.binaryAnnotations=s.map(function(e){return{key:e,value:t.tags[e],endpoint:n}})),t.remoteEndpoint){var c={key:a,value:!0,endpoint:r(t.remoteEndpoint)};e.binaryAnnotations.push(c)}return t.debug&&(e.debug=!0),JSON.stringify(e)}(t)}},t.exports.JSON_V2={encode:function(t){return function(t){var e={traceId:t.traceId};return t.parentId&&(e.parentId=t.parentId),e.id=t.id,t.name&&(e.name=t.name),t.kind&&(e.kind=t.kind),t.timestamp&&(e.timestamp=t.timestamp),t.duration&&(e.duration=t.duration),t.localEndpoint&&(e.localEndpoint=t.localEndpoint),t.remoteEndpoint&&(e.remoteEndpoint=t.remoteEndpoint),t.annotations.length>0&&(e.annotations=t.annotations),Object.keys(t.tags).length>0&&(e.tags=t.tags),t.debug&&(e.debug=!0),t.shared&&(e.shared=!0),JSON.stringify(e)}(t)}}},function(t,e,n){const{jsonEncoder:{JSON_V1:r}}=n(5);t.exports=class{constructor({endpoint:t,headers:e={},httpInterval:n=1e3,jsonEncoder:o=r,timeout:i=0}){this.queue=[],this.endpoint=t,this.jsonEncoder=o,this.headers=Object.assign({"content-type":"application/json"},e),this.timeout=i,this.timer=setInterval(this.processQueue.bind(this),n)}logSpan(t){this.queue.push(this.jsonEncoder.encode(t))}processQueue(){if(this.queue.length>0){const t=`[${this.queue.join(",")}]`;wx.request({method:"POST",url:this.endpoint,data:t,header:this.headers,timeout:this.timeout,success(t){202!==t.statusCode&&console.error("Unexpected response while sending Zipkin data, status:"+`${t.statusCode}, body: ${t.data}`)},fail(t){console.error("Error sending Zipkin data",t)}}),this.queue.length=0}}}}])});
+(function (global, factory) {
+	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+	typeof define === 'function' && define.amd ? define(factory) :
+	(global['zipkin-instrumentation-miniapp-request'] = factory());
+}(this, (function () { 'use strict';
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var None = {
+  get type() {
+    return 'None';
+  },
+  map: function map() {
+    return None;
+  },
+  ifPresent: function ifPresent() {},
+  flatMap: function flatMap() {
+    return None;
+  },
+  getOrElse: function getOrElse(f) {
+    if (f instanceof Function) {
+      return f();
+    } else {
+      return f;
+    }
+  },
+  equals: function equals(other) {
+    return other.type === 'None';
+  },
+  toString: function toString() {
+    return 'None';
+  },
+
+  get present() {
+    return false;
+  }
+};
+
+var Some = function () {
+  function Some(value) {
+    _classCallCheck(this, Some);
+
+    this.value = value;
+  }
+
+  _createClass(Some, [{
+    key: 'map',
+    value: function map(f) {
+      return new Some(f(this.value));
+    }
+  }, {
+    key: 'ifPresent',
+    value: function ifPresent(f) {
+      return this.map(f);
+    }
+  }, {
+    key: 'flatMap',
+    value: function flatMap(f) {
+      return this.map(f).getOrElse(None);
+    }
+  }, {
+    key: 'getOrElse',
+    value: function getOrElse() {
+      return this.value;
+    }
+  }, {
+    key: 'equals',
+    value: function equals(other) {
+      return other instanceof Some && other.value === this.value;
+    }
+  }, {
+    key: 'toString',
+    value: function toString() {
+      return 'Some(' + this.value.toString() + ')';
+    }
+  }, {
+    key: 'present',
+    get: function get() {
+      return true;
+    }
+  }, {
+    key: 'type',
+    get: function get() {
+      return 'Some';
+    }
+  }]);
+
+  return Some;
+}();
+
+// Used to validate input arguments
+
+
+function isOptional(data) {
+  return data != null && (data instanceof Some || data === None || data.type === 'Some' || data.type === 'None');
+}
+
+function verifyIsOptional(data) {
+  if (data == null) {
+    throw new Error('Error: data is not Optional - it\'s null');
+  }
+  if (isOptional(data)) {
+    if (isOptional(data.value)) {
+      throw new Error('Error: data (' + data.value.toString() + ') is wrapped in Option twice');
+    }
+  } else {
+    throw new Error('Error: data (' + data + ') is not an Option!');
+  }
+}
+
+function fromNullable(nullable) {
+  if (nullable != null) {
+    return new Some(nullable);
+  } else {
+    return None;
+  }
+}
+
+var Some_1 = Some;
+var None_1 = None;
+var verifyIsOptional_1 = verifyIsOptional;
+var fromNullable_1 = fromNullable;
+
+var option = {
+	Some: Some_1,
+	None: None_1,
+	verifyIsOptional: verifyIsOptional_1,
+	fromNullable: fromNullable_1
+};
+
+function commonjsRequire () {
+	throw new Error('Dynamic requires are not currently supported by rollup-plugin-commonjs');
+}
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var _createClass$1 = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck$1(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var InetAddress = function () {
+  function InetAddress(addr) {
+    _classCallCheck$1(this, InetAddress);
+
+    this.addr = addr;
+  }
+
+  // returns undefined if this isn't an IPv4 string
+
+
+  _createClass$1(InetAddress, [{
+    key: 'ipv4',
+    value: function ipv4() {
+      // coercing to int forces validation here
+      var ipv4Int = this.toInt();
+      if (ipv4Int && ipv4Int !== 0) {
+        return this.addr;
+      }
+      return undefined;
+    }
+  }, {
+    key: 'toInt',
+    value: function toInt() {
+      // e.g. 10.57.50.83
+      // should become
+      // 171520595
+      var parts = this.addr.split('.');
+
+      // The jshint tool always complains about using bitwise operators,
+      // but in this case it's actually intentional, so we disable the warning:
+      // jshint bitwise: false
+      return parts[0] << 24 | parts[1] << 16 | parts[2] << 8 | parts[3];
+    }
+  }, {
+    key: 'toString',
+    value: function toString() {
+      return 'InetAddress(' + this.addr + ')';
+    }
+  }]);
+
+  return InetAddress;
+}();
+
+// In non-node environments we fallback to 127.0.0.1
+
+
+InetAddress.getLocalAddress = function getLocalAddress() {
+  var isNode = (typeof process === 'undefined' ? 'undefined' : _typeof(process)) === 'object' && typeof process.on === 'function';
+  if (!isNode) {
+    return new InetAddress('127.0.0.1');
+  }
+
+  // eslint-disable-next-line global-require
+  var networkAddress = commonjsRequire.call(null, 'network-address');
+  return new InetAddress(networkAddress.ipv4());
+};
+
+var InetAddress_1 = InetAddress;
+
+var _createClass$2 = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+function _classCallCheck$2(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+
+
+var SimpleAnnotation = function () {
+  function SimpleAnnotation() {
+    _classCallCheck$2(this, SimpleAnnotation);
+  }
+
+  _createClass$2(SimpleAnnotation, [{
+    key: 'toString',
+    value: function toString() {
+      return this.annotationType + '()';
+    }
+  }]);
+
+  return SimpleAnnotation;
+}();
+
+var ClientSend = function (_SimpleAnnotation) {
+  _inherits(ClientSend, _SimpleAnnotation);
+
+  function ClientSend() {
+    _classCallCheck$2(this, ClientSend);
+
+    return _possibleConstructorReturn(this, (ClientSend.__proto__ || Object.getPrototypeOf(ClientSend)).apply(this, arguments));
+  }
+
+  return ClientSend;
+}(SimpleAnnotation);
+
+var ClientRecv = function (_SimpleAnnotation2) {
+  _inherits(ClientRecv, _SimpleAnnotation2);
+
+  function ClientRecv() {
+    _classCallCheck$2(this, ClientRecv);
+
+    return _possibleConstructorReturn(this, (ClientRecv.__proto__ || Object.getPrototypeOf(ClientRecv)).apply(this, arguments));
+  }
+
+  return ClientRecv;
+}(SimpleAnnotation);
+
+var ServerSend = function (_SimpleAnnotation3) {
+  _inherits(ServerSend, _SimpleAnnotation3);
+
+  function ServerSend() {
+    _classCallCheck$2(this, ServerSend);
+
+    return _possibleConstructorReturn(this, (ServerSend.__proto__ || Object.getPrototypeOf(ServerSend)).apply(this, arguments));
+  }
+
+  return ServerSend;
+}(SimpleAnnotation);
+
+var ServerRecv = function (_SimpleAnnotation4) {
+  _inherits(ServerRecv, _SimpleAnnotation4);
+
+  function ServerRecv() {
+    _classCallCheck$2(this, ServerRecv);
+
+    return _possibleConstructorReturn(this, (ServerRecv.__proto__ || Object.getPrototypeOf(ServerRecv)).apply(this, arguments));
+  }
+
+  return ServerRecv;
+}(SimpleAnnotation);
+
+function LocalOperationStart(name) {
+  this.name = name;
+}
+LocalOperationStart.prototype.toString = function () {
+  return 'LocalOperationStart("' + this.name + '")';
+};
+
+var LocalOperationStop = function (_SimpleAnnotation5) {
+  _inherits(LocalOperationStop, _SimpleAnnotation5);
+
+  function LocalOperationStop() {
+    _classCallCheck$2(this, LocalOperationStop);
+
+    return _possibleConstructorReturn(this, (LocalOperationStop.__proto__ || Object.getPrototypeOf(LocalOperationStop)).apply(this, arguments));
+  }
+
+  return LocalOperationStop;
+}(SimpleAnnotation);
+
+function Message(message) {
+  this.message = message;
+}
+Message.prototype.toString = function () {
+  return 'Message("' + this.message + '")';
+};
+
+function ServiceName(serviceName) {
+  this.serviceName = serviceName;
+}
+ServiceName.prototype.toString = function () {
+  return 'ServiceName("' + this.serviceName + '")';
+};
+
+function Rpc(name) {
+  this.name = name;
+}
+Rpc.prototype.toString = function () {
+  return 'Rpc("' + this.name + '")';
+};
+
+function ClientAddr(_ref) {
+  var host = _ref.host,
+      port = _ref.port;
+
+  this.host = host;
+  this.port = port;
+}
+ClientAddr.prototype.toString = function () {
+  return 'ClientAddr(host="' + this.host + '", port=' + this.port + ')';
+};
+
+function ServerAddr(_ref2) {
+  var serviceName = _ref2.serviceName,
+      host = _ref2.host,
+      port = _ref2.port;
+
+  this.serviceName = serviceName;
+  this.host = host || undefined;
+  this.port = port || 0;
+}
+ServerAddr.prototype.toString = function () {
+  return 'ServerAddr(serviceName="' + this.serviceName + '", host="' + this.host + '", port=' + this.port + ')';
+};
+
+function LocalAddr(_ref3) {
+  var host = _ref3.host,
+      port = _ref3.port;
+
+  this.host = host || InetAddress_1.getLocalAddress();
+  this.port = port || 0;
+}
+LocalAddr.prototype.toString = function () {
+  return 'LocalAddr(host="' + this.host.toString() + '", port=' + this.port + ')';
+};
+
+function BinaryAnnotation(key, value) {
+  this.key = key;
+  this.value = value;
+}
+BinaryAnnotation.prototype.toString = function () {
+  return 'BinaryAnnotation(' + this.key + '="' + this.value + '")';
+};
+
+var annotation = {
+  ClientSend: ClientSend,
+  ClientRecv: ClientRecv,
+  ServerSend: ServerSend,
+  ServerRecv: ServerRecv,
+  Message: Message,
+  ServiceName: ServiceName,
+  Rpc: Rpc,
+  ClientAddr: ClientAddr,
+  ServerAddr: ServerAddr,
+  LocalAddr: LocalAddr,
+  BinaryAnnotation: BinaryAnnotation,
+  LocalOperationStart: LocalOperationStart,
+  LocalOperationStop: LocalOperationStop
+};
+
+Object.keys(annotation).forEach(function (key) {
+  annotation[key].prototype.annotationType = key;
+});
+
+var annotation_1 = annotation;
+
+var _createClass$3 = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _possibleConstructorReturn$1(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits$1(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+function _classCallCheck$3(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Some$1 = option.Some;
+// Determines whether or not a traceId should be sampled.
+// If no sample decision is already made (by a debug flag, or
+// the "sampled" property is set), it will use evaluator,
+// which is a function traceId => Boolean, and returns true if
+// the traceId should be sampled (stored in Zipkin).
+
+
+var Sampler = function () {
+  function Sampler(evaluator) {
+    _classCallCheck$3(this, Sampler);
+
+    this.evaluator = evaluator;
+  }
+
+  _createClass$3(Sampler, [{
+    key: 'shouldSample',
+    value: function shouldSample(traceId) {
+      var _this = this;
+
+      var result = traceId.sampled.getOrElse(function () {
+        return _this.evaluator(traceId);
+      });
+      return new Some$1(result);
+    }
+  }, {
+    key: 'toString',
+    value: function toString() {
+      return 'Sampler(' + this.evaluator.toString() + ')';
+    }
+  }]);
+
+  return Sampler;
+}();
+
+function neverSample(traceId) {
+  // eslint-disable-line no-unused-vars
+  return false;
+}
+neverSample.toString = function () {
+  return 'never sample';
+};
+
+function alwaysSample(traceId) {
+  // eslint-disable-line no-unused-vars
+  return true;
+}
+alwaysSample.toString = function () {
+  return 'always sample';
+};
+
+function makeCountingEvaluator(sampleRate) {
+  if (sampleRate <= 0) {
+    return neverSample;
+  } else if (sampleRate >= 1) {
+    return alwaysSample;
+  } else {
+    var counter = 0;
+    var limit = parseInt(1 / sampleRate);
+    var counting = function counting(traceId) {
+      // eslint-disable-line no-unused-vars
+      counter = counter % limit;
+      var shouldSample = counter === 0;
+      counter++;
+      return shouldSample;
+    };
+    counting.toString = function () {
+      return 'countingSampler: sampleRate=' + sampleRate;
+    };
+    return counting;
+  }
+}
+
+var CountingSampler = function (_Sampler) {
+  _inherits$1(CountingSampler, _Sampler);
+
+  function CountingSampler() {
+    var sampleRate = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+
+    _classCallCheck$3(this, CountingSampler);
+
+    return _possibleConstructorReturn$1(this, (CountingSampler.__proto__ || Object.getPrototypeOf(CountingSampler)).call(this, makeCountingEvaluator(sampleRate < 1 ? sampleRate : 1)));
+  }
+
+  return CountingSampler;
+}(Sampler);
+
+var sampler = { Sampler: Sampler, CountingSampler: CountingSampler, neverSample: neverSample, alwaysSample: alwaysSample };
+
+var _createClass$4 = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck$4(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Record = function () {
+  function Record(_ref) {
+    var traceId = _ref.traceId,
+        timestamp = _ref.timestamp,
+        annotation = _ref.annotation;
+
+    _classCallCheck$4(this, Record);
+
+    this.traceId = traceId;
+    this.timestamp = timestamp;
+    this.annotation = annotation;
+  }
+
+  _createClass$4(Record, [{
+    key: "toString",
+    value: function toString() {
+      return "Record(traceId=" + this.traceId.toString() + ", annotation=" + this.annotation.toString() + ")";
+    }
+  }]);
+
+  return Record;
+}();
+
+var record = Record;
+
+var _createClass$5 = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck$5(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Some$2 = option.Some;
+var None$1 = option.None;
+var verifyIsOptional$1 = option.verifyIsOptional;
+
+var TraceId = function () {
+  function TraceId(params) {
+    _classCallCheck$5(this, TraceId);
+
+    var _params$traceId = params.traceId,
+        traceId = _params$traceId === undefined ? None$1 : _params$traceId,
+        _params$parentId = params.parentId,
+        parentId = _params$parentId === undefined ? None$1 : _params$parentId,
+        spanId = params.spanId,
+        _params$sampled = params.sampled,
+        sampled = _params$sampled === undefined ? None$1 : _params$sampled,
+        _params$flags = params.flags,
+        flags = _params$flags === undefined ? 0 : _params$flags;
+
+    verifyIsOptional$1(traceId);
+    verifyIsOptional$1(parentId);
+    verifyIsOptional$1(sampled);
+    this._traceId = traceId;
+    this._parentId = parentId;
+    this._spanId = spanId;
+    this._sampled = sampled;
+    this._flags = flags;
+  }
+
+  _createClass$5(TraceId, [{
+    key: 'isDebug',
+    value: function isDebug() {
+      // The jshint tool always complains about using bitwise operators,
+      // but in this case it's actually intentional, so we disable the warning:
+      // jshint bitwise: false
+      return (this._flags & 1) === 1;
+    }
+  }, {
+    key: 'toString',
+    value: function toString() {
+      return 'TraceId(spanId=' + this.spanId.toString() + (', parentId=' + this.parentId.toString()) + (', traceId=' + this.traceId.toString() + ')');
+    }
+  }, {
+    key: 'spanId',
+    get: function get() {
+      return this._spanId;
+    }
+  }, {
+    key: 'parentId',
+    get: function get() {
+      return this._parentId.getOrElse(this.spanId);
+    }
+  }, {
+    key: 'traceId',
+    get: function get() {
+      return this._traceId.getOrElse(this.parentId);
+    }
+  }, {
+    key: 'sampled',
+    get: function get() {
+      return this.isDebug() ? new Some$2(true) : this._sampled;
+    }
+  }, {
+    key: 'flags',
+    get: function get() {
+      return this._flags;
+    }
+  }]);
+
+  return TraceId;
+}();
+
+var TraceId_1 = TraceId;
+
+// === Generate a random 64-bit number in fixed-length hex format
+function randomTraceId() {
+  var digits = '0123456789abcdef';
+  var n = '';
+  for (var i = 0; i < 16; i++) {
+    var rand = Math.floor(Math.random() * 16);
+    n += digits[rand];
+  }
+  return n;
+}
+
+var randomTraceId_1 = randomTraceId;
+
+var hrTimeSupport = typeof process !== 'undefined' && process.hrtime;
+
+// since hrtime isn't available, we can ignore the input parameters
+function nowLegacy() {
+  return Date.now() * 1000;
+}
+
+function nowHrTime(startTimestamp, startTick) {
+  if (startTimestamp && startTick) {
+    var hrtime = process.hrtime(startTick);
+    var elapsedMicros = Math.floor(hrtime[0] * 1000000 + hrtime[1] / 1000);
+    return startTimestamp + elapsedMicros;
+  } else {
+    return Date.now() * 1000;
+  }
+}
+
+// Returns the current time in epoch microseconds
+// if startTimestamp and startTick are present, process.hrtime is used
+// See https://nodejs.org/api/process.html#process_process_hrtime_time
+var now = hrTimeSupport ? nowHrTime : nowLegacy;
+var hrtime = hrTimeSupport ? function () {
+  return process.hrtime();
+} : function () {
+  return undefined;
+};
+
+var time = {
+	now: now,
+	hrtime: hrtime
+};
+
+function Endpoint(_ref) {
+  var serviceName = _ref.serviceName,
+      ipv4 = _ref.ipv4,
+      port = _ref.port;
+
+  this.setServiceName(serviceName);
+  this.setIpv4(ipv4);
+  this.setPort(port);
+}
+Endpoint.prototype.setServiceName = function setServiceName(serviceName) {
+  // In zipkin, names are lowercase. This eagerly converts to alert users early.
+  this.serviceName = serviceName ? serviceName.toLocaleLowerCase() : undefined;
+};
+Endpoint.prototype.setIpv4 = function setIpv4(ipv4) {
+  this.ipv4 = ipv4;
+};
+Endpoint.prototype.setPort = function setPort(port) {
+  this.port = port || undefined;
+};
+Endpoint.prototype.isEmpty = function isEmpty() {
+  return this.serviceName === undefined && this.ipv4 === undefined && this.port === undefined;
+};
+
+function Annotation(timestamp, value) {
+  this.timestamp = timestamp;
+  this.value = value;
+}
+Annotation.prototype.toString = function toString() {
+  return 'Annotation(value="' + this.value + '")';
+};
+
+function Span(traceId) {
+  var _this = this;
+
+  this.traceId = traceId.traceId;
+  traceId._parentId.ifPresent(function (id) {
+    _this.parentId = id;
+  });
+  this.id = traceId.spanId;
+  this.name = undefined; // no default
+  this.kind = undefined; // no default
+  this.timestamp = undefined;
+  this.duration = undefined;
+  this.localEndpoint = undefined; // no default
+  this.remoteEndpoint = undefined; // no default
+  this.annotations = [];
+  this.tags = {};
+  this.debug = traceId.isDebug();
+  this.shared = false;
+}
+
+Span.prototype.setName = function setName(name) {
+  // In zipkin, names are lowercase. This eagerly converts to alert users early.
+  this.name = name ? name.toLocaleLowerCase() : undefined;
+};
+Span.prototype.setKind = function setKind(kind) {
+  this.kind = kind;
+};
+Span.prototype.setTimestamp = function setTimestamp(timestamp) {
+  this.timestamp = timestamp;
+};
+Span.prototype.setDuration = function setDuration(duration) {
+  // Due to rounding errors, a fraction ends up as zero, so check undefined
+  if (typeof duration !== 'undefined') {
+    this.duration = Math.max(duration, 1);
+  }
+};
+Span.prototype.setLocalEndpoint = function setLocalEndpoint(ep) {
+  if (ep && !ep.isEmpty()) {
+    this.localEndpoint = ep;
+  } else {
+    this.localEndpoint = undefined;
+  }
+};
+Span.prototype.setRemoteEndpoint = function setRemoteEndpoint(ep) {
+  if (ep && !ep.isEmpty()) {
+    this.remoteEndpoint = ep;
+  } else {
+    this.remoteEndpoint = undefined;
+  }
+};
+Span.prototype.addAnnotation = function addAnnotation(timestamp, value) {
+  this.annotations.push(new Annotation(timestamp, value));
+};
+Span.prototype.putTag = function putTag(key, value) {
+  this.tags[key] = value;
+};
+Span.prototype.setDebug = function setDebug(debug) {
+  this.debug = debug;
+};
+Span.prototype.setShared = function setShared(shared) {
+  this.shared = shared;
+};
+Span.prototype.toString = function toString() {
+  var annotations = this.annotations.map(function (a) {
+    return a.toString();
+  }).join(', ');
+  return 'Span(id=' + this.traceId + ', annotations=[' + annotations + '])';
+};
+
+var Endpoint_1 = Endpoint;
+var Span_1 = Span;
+
+var model = {
+	Endpoint: Endpoint_1,
+	Span: Span_1
+};
+
+var isPromise_1 = isPromise;
+
+function isPromise(obj) {
+  return !!obj && (typeof obj === 'object' || typeof obj === 'function') && typeof obj.then === 'function';
+}
+
+var _createClass$6 = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck$6(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var None$2 = option.None;
+var Some$3 = option.Some;
+var fromNullable$1 = option.fromNullable;
+
+var Sampler$1 = sampler.Sampler;
+var alwaysSample$1 = sampler.alwaysSample;
+
+
+
+
+
+
+var now$1 = time.now;
+var hrtime$1 = time.hrtime;
+
+var Endpoint$1 = model.Endpoint;
+
+
+
+function requiredArg(name) {
+  throw new Error('Tracer: Missing required argument ' + name + '.');
+}
+
+var Tracer = function () {
+  function Tracer(_ref) {
+    var _ref$ctxImpl = _ref.ctxImpl,
+        ctxImpl = _ref$ctxImpl === undefined ? requiredArg('ctxImpl') : _ref$ctxImpl,
+        _ref$recorder = _ref.recorder,
+        recorder = _ref$recorder === undefined ? requiredArg('recorder') : _ref$recorder,
+        _ref$sampler = _ref.sampler,
+        sampler$$1 = _ref$sampler === undefined ? new Sampler$1(alwaysSample$1) : _ref$sampler,
+        _ref$traceId128Bit = _ref.traceId128Bit,
+        traceId128Bit = _ref$traceId128Bit === undefined ? false : _ref$traceId128Bit,
+        localServiceName = _ref.localServiceName,
+        localEndpoint = _ref.localEndpoint;
+
+    _classCallCheck$6(this, Tracer);
+
+    this.recorder = recorder;
+    this.sampler = sampler$$1;
+    this.traceId128Bit = traceId128Bit;
+    if (localEndpoint) {
+      this._localEndpoint = localEndpoint;
+    } else {
+      this._localEndpoint = new Endpoint$1({
+        serviceName: localServiceName || 'unknown'
+      });
+    }
+    this._ctxImpl = ctxImpl;
+    this._defaultTraceId = this.createRootId();
+    this._startTimestamp = now$1();
+    this._startTick = hrtime$1();
+  }
+
+  _createClass$6(Tracer, [{
+    key: 'scoped',
+    value: function scoped(callback) {
+      return this._ctxImpl.scoped(callback);
+    }
+  }, {
+    key: 'createRootId',
+    value: function createRootId() {
+      var rootSpanId = randomTraceId_1();
+      var traceId = this.traceId128Bit ? new Some$3(randomTraceId_1() + rootSpanId) : None$2;
+      var id = new TraceId_1({
+        traceId: traceId,
+        parentId: None$2,
+        spanId: rootSpanId,
+        sampled: None$2,
+        flags: 0
+      });
+      id._sampled = this.sampler.shouldSample(id);
+      return id;
+    }
+  }, {
+    key: 'createChildId',
+    value: function createChildId() {
+      var currentId = fromNullable$1(this._ctxImpl.getContext());
+
+      var childId = new TraceId_1({
+        traceId: currentId.map(function (id) {
+          return id.traceId;
+        }),
+        parentId: currentId.map(function (id) {
+          return id.spanId;
+        }),
+        spanId: randomTraceId_1(),
+        sampled: currentId.flatMap(function (id) {
+          return id.sampled;
+        }),
+        flags: currentId.map(function (id) {
+          return id.flags;
+        }).getOrElse(0)
+      });
+      if (childId.sampled.present === false) {
+        childId._sampled = this.sampler.shouldSample(childId);
+      }
+      return childId;
+    }
+
+    // creates a span, timing the given callable, adding any error as a tag
+    // if the callable returns a promise, a span stops after the promise resolves
+
+  }, {
+    key: 'local',
+    value: function local(operationName, callable) {
+      var _this = this;
+
+      if (typeof callable !== 'function') {
+        throw new Error('you must pass a function');
+      }
+      return this.scoped(function () {
+        var traceId = _this.createChildId();
+        _this.setId(traceId);
+        _this.recordServiceName(_this._localEndpoint.serviceName);
+        _this.recordAnnotation(new annotation_1.LocalOperationStart(operationName));
+
+        var result = void 0;
+        try {
+          result = callable();
+        } catch (err) {
+          _this.recordBinary('error', err.message ? err.message : err.toString());
+          _this.recordAnnotation(new annotation_1.LocalOperationStop());
+          throw err;
+        }
+
+        // Finish the span on a synchronous success
+        if (!isPromise_1(result)) {
+          _this.recordAnnotation(new annotation_1.LocalOperationStop());
+          return result;
+        }
+
+        if (!traceId.sampled.getOrElse(false)) {
+          return result; // no need to stop as it was never started
+        }
+
+        // At this point we know we are sampled. Explicitly record against the ID
+        var explicitRecord = function explicitRecord(annotation) {
+          return _this.recorder.record(new record({
+            traceId: traceId,
+            timestamp: now$1(_this._startTimestamp, _this._startTick),
+            annotation: annotation
+          }));
+        };
+
+        // Ensure the span representing the promise completes
+        return result.then(function (output) {
+          explicitRecord(new annotation_1.LocalOperationStop());
+          return output;
+        }).catch(function (err) {
+          var message = err.message ? err.message : err.toString();
+          explicitRecord(new annotation_1.BinaryAnnotation('error', message));
+          explicitRecord(new annotation_1.LocalOperationStop());
+          throw err;
+        });
+      });
+    }
+  }, {
+    key: 'letChildId',
+    value: function letChildId(callable) {
+      var _this2 = this;
+
+      return this.scoped(function () {
+        var traceId = _this2.createChildId();
+        _this2.setId(traceId);
+        return callable(traceId);
+      });
+    }
+  }, {
+    key: 'setId',
+    value: function setId(traceId) {
+      this._ctxImpl.setContext(traceId);
+    }
+  }, {
+    key: 'recordAnnotation',
+    value: function recordAnnotation(annotation) {
+      var _this3 = this;
+
+      this.id.sampled.ifPresent(function (sampled) {
+        // sampled present is different than sampled == true
+        if (!sampled) return;
+        _this3.recorder.record(new record({
+          traceId: _this3.id,
+          timestamp: now$1(_this3._startTimestamp, _this3._startTick),
+          annotation: annotation
+        }));
+      });
+    }
+  }, {
+    key: 'recordMessage',
+    value: function recordMessage(message) {
+      this.recordAnnotation(new annotation_1.Message(message));
+    }
+  }, {
+    key: 'recordServiceName',
+    value: function recordServiceName(serviceName) {
+      this.recordAnnotation(new annotation_1.ServiceName(serviceName));
+    }
+  }, {
+    key: 'recordRpc',
+    value: function recordRpc(name) {
+      this.recordAnnotation(new annotation_1.Rpc(name));
+    }
+  }, {
+    key: 'recordClientAddr',
+    value: function recordClientAddr(ia) {
+      this.recordAnnotation(new annotation_1.ClientAddr(ia));
+    }
+  }, {
+    key: 'recordServerAddr',
+    value: function recordServerAddr(ia) {
+      this.recordAnnotation(new annotation_1.ServerAddr(ia));
+    }
+  }, {
+    key: 'recordLocalAddr',
+    value: function recordLocalAddr(ia) {
+      this.recordAnnotation(new annotation_1.LocalAddr(ia));
+    }
+  }, {
+    key: 'recordBinary',
+    value: function recordBinary(key, value) {
+      this.recordAnnotation(new annotation_1.BinaryAnnotation(key, value));
+    }
+  }, {
+    key: 'writeIdToConsole',
+    value: function writeIdToConsole(message) {
+      /* eslint-disable no-console */
+      console.log(message + ': ' + this.id.toString());
+    }
+  }, {
+    key: 'id',
+    get: function get() {
+      return this._ctxImpl.getContext() || this._defaultTraceId;
+    }
+  }, {
+    key: 'localEndpoint',
+    get: function get() {
+      return this._localEndpoint;
+    }
+  }]);
+
+  return Tracer;
+}();
+
+var tracer = Tracer;
+
+var _createClass$7 = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck$7(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var explicitContext = function () {
+  function ExplicitContext() {
+    _classCallCheck$7(this, ExplicitContext);
+
+    this.currentCtx = null;
+  }
+
+  _createClass$7(ExplicitContext, [{
+    key: "setContext",
+    value: function setContext(ctx) {
+      this.currentCtx = ctx;
+    }
+  }, {
+    key: "getContext",
+    value: function getContext() {
+      return this.currentCtx;
+    }
+  }, {
+    key: "scoped",
+    value: function scoped(callable) {
+      var prevCtx = this.currentCtx;
+      var result = callable();
+      this.currentCtx = prevCtx;
+      return result;
+    }
+  }, {
+    key: "letContext",
+    value: function letContext(ctx, callable) {
+      var _this = this;
+
+      return this.scoped(function () {
+        _this.setContext(ctx);
+        return callable();
+      });
+    }
+  }]);
+
+  return ExplicitContext;
+}();
+
+var noop = function createNoopTracer() {
+  var recorder = {
+    record: function record() {}
+  };
+  var ctxImpl = new explicitContext();
+  return new tracer({ recorder: recorder, ctxImpl: ctxImpl });
+};
+
+var httpHeaders = {
+  TraceId: 'X-B3-TraceId',
+  SpanId: 'X-B3-SpanId',
+  ParentSpanId: 'X-B3-ParentSpanId',
+  Sampled: 'X-B3-Sampled',
+  Flags: 'X-B3-Flags'
+};
+
+var _createClass$8 = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck$8(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var now$2 = time.now;
+var hrtime$2 = time.hrtime;
+
+var Span$1 = model.Span;
+var Endpoint$2 = model.Endpoint;
+
+function PartialSpan(traceId) {
+  this.traceId = traceId;
+  this.startTimestamp = now$2();
+  this.startTick = hrtime$2();
+  this.delegate = new Span$1(traceId);
+  this.localEndpoint = new Endpoint$2({});
+}
+PartialSpan.prototype.finish = function finish() {
+  if (this.endTimestamp) {
+    return;
+  }
+  this.endTimestamp = now$2(this.startTimestamp, this.startTick);
+};
+
+var BatchRecorder = function () {
+  function BatchRecorder(_ref) {
+    var _this = this;
+
+    var logger = _ref.logger,
+        _ref$timeout = _ref.timeout,
+        timeout = _ref$timeout === undefined ? 60 * 1000000 : _ref$timeout;
+
+    _classCallCheck$8(this, BatchRecorder);
+
+    this.logger = logger;
+    this.timeout = timeout;
+    this.partialSpans = new Map();
+
+    // read through the partials spans regularly
+    // and collect any timed-out ones
+    var timer = setInterval(function () {
+      _this.partialSpans.forEach(function (span, id) {
+        if (_this._timedOut(span)) {
+          _this._writeSpan(id);
+        }
+      });
+    }, 1000);
+    if (timer.unref) {
+      // unref might not be available in browsers
+      timer.unref(); // Allows Node to terminate instead of blocking on timer
+    }
+  }
+
+  _createClass$8(BatchRecorder, [{
+    key: '_writeSpan',
+    value: function _writeSpan(id) {
+      var span = this.partialSpans.get(id);
+
+      // TODO(adriancole) refactor so this responsibility isn't in writeSpan
+      if (span === undefined) {
+        // Span not found.  Could have been expired.
+        return;
+      }
+
+      // ready for garbage collection
+      this.partialSpans.delete(id);
+
+      var spanToWrite = span.delegate;
+      spanToWrite.setLocalEndpoint(span.localEndpoint);
+      if (span.endTimestamp) {
+        spanToWrite.setTimestamp(span.startTimestamp);
+        spanToWrite.setDuration(span.endTimestamp - span.startTimestamp);
+      }
+      this.logger.logSpan(spanToWrite);
+    }
+  }, {
+    key: '_updateSpanMap',
+    value: function _updateSpanMap(id, updater) {
+      var span = void 0;
+      if (this.partialSpans.has(id)) {
+        span = this.partialSpans.get(id);
+      } else {
+        span = new PartialSpan(id);
+      }
+      updater(span);
+      if (span.endTimestamp) {
+        this._writeSpan(id);
+      } else {
+        this.partialSpans.set(id, span);
+      }
+    }
+  }, {
+    key: '_timedOut',
+    value: function _timedOut(span) {
+      return span.startTimestamp + this.timeout < now$2();
+    }
+  }, {
+    key: 'record',
+    value: function record(rec) {
+      var id = rec.traceId;
+
+      this._updateSpanMap(id, function (span) {
+        switch (rec.annotation.annotationType) {
+          case 'ClientSend':
+            span.delegate.setKind('CLIENT');
+            break;
+          case 'ClientRecv':
+            span.finish();
+            span.delegate.setKind('CLIENT');
+            break;
+          case 'ServerSend':
+            span.finish();
+            span.delegate.setKind('SERVER');
+            break;
+          case 'ServerRecv':
+            // TODO: only set this to false when we know we in an existing trace
+            span.delegate.setShared(id.parentId !== id.spanId);
+            span.delegate.setKind('CLIENT');
+            break;
+          case 'LocalOperationStart':
+            span.delegate.setName(rec.annotation.name);
+            break;
+          case 'LocalOperationStop':
+            span.finish();
+            break;
+          case 'Message':
+            span.delegate.addAnnotation(rec.timestamp, rec.annotation.message);
+            break;
+          case 'Rpc':
+            span.delegate.setName(rec.annotation.name);
+            break;
+          case 'ServiceName':
+            span.localEndpoint.setServiceName(rec.annotation.serviceName);
+            break;
+          case 'BinaryAnnotation':
+            span.delegate.putTag(rec.annotation.key, rec.annotation.value);
+            break;
+          case 'LocalAddr':
+            span.localEndpoint.setIpv4(rec.annotation.host && rec.annotation.host.ipv4());
+            span.localEndpoint.setPort(rec.annotation.port);
+            break;
+          case 'ServerAddr':
+            span.delegate.setKind('CLIENT');
+            span.delegate.setRemoteEndpoint(new Endpoint$2({
+              serviceName: rec.annotation.serviceName,
+              ipv4: rec.annotation.host && rec.annotation.host.ipv4(),
+              port: rec.annotation.port
+            }));
+            break;
+          default:
+            break;
+        }
+      });
+    }
+  }, {
+    key: 'toString',
+    value: function toString() {
+      return 'BatchRecorder()';
+    }
+  }]);
+
+  return BatchRecorder;
+}();
+
+var batchRecorder = BatchRecorder;
+
+var _createClass$9 = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck$9(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var ConsoleRecorder = function () {
+  /* eslint-disable no-console */
+  function ConsoleRecorder() {
+    var logger = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : console.log;
+
+    _classCallCheck$9(this, ConsoleRecorder);
+
+    this.logger = logger;
+  }
+
+  _createClass$9(ConsoleRecorder, [{
+    key: 'record',
+    value: function record(rec) {
+      var id = rec.traceId;
+      this.logger('Record at (spanId=' + id.spanId + ', parentId=' + id.parentId + ',' + (' traceId=' + id.traceId + '): ' + rec.annotation.toString()));
+    }
+  }, {
+    key: 'toString',
+    value: function toString() {
+      return 'consoleTracer';
+    }
+  }]);
+
+  return ConsoleRecorder;
+}();
+
+var consoleRecorder = ConsoleRecorder;
+
+function appendZipkinHeaders(req, traceId) {
+  var headers = req.headers || {};
+  headers[httpHeaders.TraceId] = traceId.traceId;
+  headers[httpHeaders.SpanId] = traceId.spanId;
+
+  traceId._parentId.ifPresent(function (psid) {
+    headers[httpHeaders.ParentSpanId] = psid;
+  });
+  traceId.sampled.ifPresent(function (sampled) {
+    headers[httpHeaders.Sampled] = sampled ? '1' : '0';
+  });
+
+  return headers;
+}
+
+function addZipkinHeaders(req, traceId) {
+  var headers = appendZipkinHeaders(req, traceId);
+  return Object.assign({}, req, { headers: headers });
+}
+
+var request = {
+  addZipkinHeaders: addZipkinHeaders
+};
+
+var _createClass$10 = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck$10(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+
+
+var Some$4 = option.Some;
+var None$3 = option.None;
+
+
+
+
+function stringToBoolean(str) {
+  return str === '1' || str === 'true';
+}
+
+function stringToIntOption(str) {
+  try {
+    return new Some$4(parseInt(str));
+  } catch (err) {
+    return None$3;
+  }
+}
+
+function containsRequiredHeaders(readHeader) {
+  return readHeader(httpHeaders.TraceId) !== None$3 && readHeader(httpHeaders.SpanId) !== None$3;
+}
+
+function requiredArg$1(name) {
+  throw new Error('HttpServerInstrumentation: Missing required argument ' + name + '.');
+}
+
+var HttpServerInstrumentation = function () {
+  function HttpServerInstrumentation(_ref) {
+    var _ref$tracer = _ref.tracer,
+        tracer = _ref$tracer === undefined ? requiredArg$1('tracer') : _ref$tracer,
+        _ref$serviceName = _ref.serviceName,
+        serviceName = _ref$serviceName === undefined ? tracer.localEndpoint.serviceName : _ref$serviceName,
+        _ref$port = _ref.port,
+        port = _ref$port === undefined ? requiredArg$1('port') : _ref$port;
+
+    _classCallCheck$10(this, HttpServerInstrumentation);
+
+    this.tracer = tracer;
+    this.serviceName = serviceName;
+    this.port = port;
+  }
+
+  _createClass$10(HttpServerInstrumentation, [{
+    key: '_createIdFromHeaders',
+    value: function _createIdFromHeaders(readHeader) {
+      if (containsRequiredHeaders(readHeader)) {
+        var spanId = readHeader(httpHeaders.SpanId);
+        return spanId.map(function (sid) {
+          var traceId = readHeader(httpHeaders.TraceId);
+          var parentSpanId = readHeader(httpHeaders.ParentSpanId);
+          var sampled = readHeader(httpHeaders.Sampled);
+          var flags = readHeader(httpHeaders.Flags).flatMap(stringToIntOption).getOrElse(0);
+          return new TraceId_1({
+            traceId: traceId,
+            parentId: parentSpanId,
+            spanId: sid,
+            sampled: sampled.map(stringToBoolean),
+            flags: flags
+          });
+        });
+      } else {
+        if (readHeader(httpHeaders.Flags) !== None$3) {
+          var currentId = this.tracer.id;
+          var idWithFlags = new TraceId_1({
+            traceId: currentId.traceId,
+            parentId: currentId.parentId,
+            spanId: currentId.spanId,
+            sampled: currentId.sampled,
+            flags: readHeader(httpHeaders.Flags)
+          });
+          return new Some$4(idWithFlags);
+        } else {
+          return new Some$4(this.tracer.createRootId());
+        }
+      }
+    }
+  }, {
+    key: 'recordRequest',
+    value: function recordRequest(method, requestUrl, readHeader) {
+      var _this = this;
+
+      this._createIdFromHeaders(readHeader).ifPresent(function (id) {
+        return _this.tracer.setId(id);
+      });
+      var id = this.tracer.id;
+
+      this.tracer.recordServiceName(this.serviceName);
+      this.tracer.recordRpc(method.toUpperCase());
+      this.tracer.recordBinary('http.url', requestUrl);
+      this.tracer.recordAnnotation(new annotation_1.ServerRecv());
+      this.tracer.recordAnnotation(new annotation_1.LocalAddr({ port: this.port }));
+
+      if (id.flags !== 0 && id.flags != null) {
+        this.tracer.recordBinary(httpHeaders.Flags, id.flags.toString());
+      }
+      return id;
+    }
+  }, {
+    key: 'recordResponse',
+    value: function recordResponse(id, statusCode, error) {
+      this.tracer.setId(id);
+      this.tracer.recordBinary('http.status_code', statusCode.toString());
+      if (error) {
+        this.tracer.recordBinary('error', error.toString());
+      }
+      this.tracer.recordAnnotation(new annotation_1.ServerSend());
+    }
+  }]);
+
+  return HttpServerInstrumentation;
+}();
+
+var httpServer = HttpServerInstrumentation;
+
+var _createClass$11 = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck$11(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+
+
+
+function requiredArg$2(name) {
+  throw new Error('HttpClientInstrumentation: Missing required argument ' + name + '.');
+}
+
+var HttpClientInstrumentation = function () {
+  function HttpClientInstrumentation(_ref) {
+    var _ref$tracer = _ref.tracer,
+        tracer = _ref$tracer === undefined ? requiredArg$2('tracer') : _ref$tracer,
+        _ref$serviceName = _ref.serviceName,
+        serviceName = _ref$serviceName === undefined ? tracer.localEndpoint.serviceName : _ref$serviceName,
+        remoteServiceName = _ref.remoteServiceName;
+
+    _classCallCheck$11(this, HttpClientInstrumentation);
+
+    this.tracer = tracer;
+    this.serviceName = serviceName;
+    this.remoteServiceName = remoteServiceName;
+  }
+
+  _createClass$11(HttpClientInstrumentation, [{
+    key: 'recordRequest',
+    value: function recordRequest(request$$1, url, method) {
+      this.tracer.setId(this.tracer.createChildId());
+      var traceId = this.tracer.id;
+
+      this.tracer.recordServiceName(this.serviceName);
+      this.tracer.recordRpc(method.toUpperCase());
+      this.tracer.recordBinary('http.url', url);
+      this.tracer.recordAnnotation(new annotation_1.ClientSend());
+      if (this.remoteServiceName) {
+        // TODO: can we get the host and port of the http connection?
+        this.tracer.recordAnnotation(new annotation_1.ServerAddr({
+          serviceName: this.remoteServiceName
+        }));
+      }
+
+      return request.addZipkinHeaders(request$$1, traceId);
+    }
+  }, {
+    key: 'recordResponse',
+    value: function recordResponse(traceId, statusCode) {
+      this.tracer.setId(traceId);
+      this.tracer.recordBinary('http.status_code', statusCode.toString());
+      this.tracer.recordAnnotation(new annotation_1.ClientRecv());
+    }
+  }, {
+    key: 'recordError',
+    value: function recordError(traceId, error) {
+      this.tracer.setId(traceId);
+      this.tracer.recordBinary('error', error.toString());
+      this.tracer.recordAnnotation(new annotation_1.ClientRecv());
+    }
+  }]);
+
+  return HttpClientInstrumentation;
+}();
+
+var httpClient = HttpClientInstrumentation;
+
+var instrumentation = {
+  HttpServer: httpServer,
+  HttpClient: httpClient
+};
+
+function toV1Endpoint(endpoint) {
+  if (endpoint === undefined) {
+    return undefined;
+  }
+  var res = {
+    serviceName: endpoint.serviceName || '' // undefined is not allowed in v1
+  };
+  if (endpoint.ipv4) {
+    res.ipv4 = endpoint.ipv4;
+  }
+  if (endpoint.port) {
+    res.port = endpoint.port;
+  }
+  return res;
+}
+
+function toV1Annotation(ann, endpoint) {
+  return {
+    value: ann.value,
+    timestamp: ann.timestamp,
+    endpoint: endpoint
+  };
+}
+
+function encodeV1(span) {
+  var res = {
+    traceId: span.traceId
+  };
+  if (span.parentId) {
+    // instead of writing "parentId": NULL
+    res.parentId = span.parentId;
+  }
+  res.id = span.id;
+  res.name = span.name || ''; // undefined is not allowed in v1
+
+  // Log timestamp and duration if this tracer started and completed this span.
+  if (!span.shared) {
+    res.timestamp = span.timestamp;
+    res.duration = span.duration;
+  }
+
+  var jsonEndpoint = toV1Endpoint(span.localEndpoint);
+
+  var beginAnnotation = void 0;
+  var endAnnotation = void 0;
+  var addressKey = void 0;
+  switch (span.kind) {
+    case 'CLIENT':
+      beginAnnotation = span.timestamp ? 'cs' : undefined;
+      endAnnotation = 'cr';
+      addressKey = 'sa';
+      break;
+    case 'SERVER':
+      beginAnnotation = span.timestamp ? 'sr' : undefined;
+      endAnnotation = 'ss';
+      addressKey = 'ca';
+      break;
+    default:
+  }
+
+  if (span.annotations.length > 0 || beginAnnotation) {
+    // don't write empty array
+    res.annotations = span.annotations.map(function (ann) {
+      return toV1Annotation(ann, jsonEndpoint);
+    });
+  }
+
+  if (beginAnnotation) {
+    res.annotations.push({
+      value: beginAnnotation,
+      timestamp: span.timestamp,
+      endpoint: jsonEndpoint
+    });
+    if (span.duration) {
+      res.annotations.push({
+        value: endAnnotation,
+        timestamp: span.timestamp + span.duration,
+        endpoint: jsonEndpoint
+      });
+    }
+  }
+
+  var keys = Object.keys(span.tags);
+  if (keys.length > 0 || span.remoteEndpoint) {
+    // don't write empty array
+    res.binaryAnnotations = keys.map(function (key) {
+      return {
+        key: key,
+        value: span.tags[key],
+        endpoint: jsonEndpoint
+      };
+    });
+  }
+
+  if (span.remoteEndpoint) {
+    var address = {
+      key: addressKey,
+      value: true,
+      endpoint: toV1Endpoint(span.remoteEndpoint)
+    };
+    res.binaryAnnotations.push(address);
+  }
+
+  if (span.debug) {
+    // instead of writing "debug": false
+    res.debug = true;
+  }
+  return JSON.stringify(res);
+}
+
+function encodeV2(span) {
+  var copy = {
+    traceId: span.traceId
+  };
+  if (span.parentId) {
+    copy.parentId = span.parentId;
+  }
+  copy.id = span.id;
+  if (span.name) {
+    copy.name = span.name;
+  }
+  if (span.kind) {
+    copy.kind = span.kind;
+  }
+  if (span.timestamp) {
+    copy.timestamp = span.timestamp;
+  }
+  if (span.duration) {
+    copy.duration = span.duration;
+  }
+  if (span.localEndpoint) {
+    copy.localEndpoint = span.localEndpoint;
+  }
+  if (span.remoteEndpoint) {
+    copy.remoteEndpoint = span.remoteEndpoint;
+  }
+  if (span.annotations.length > 0) {
+    copy.annotations = span.annotations;
+  }
+  if (Object.keys(span.tags).length > 0) {
+    copy.tags = span.tags;
+  }
+  if (span.debug) {
+    copy.debug = true;
+  }
+  if (span.shared) {
+    copy.shared = true;
+  }
+  return JSON.stringify(copy);
+}
+
+var JSON_V1 = {
+  encode: function encode(span) {
+    return encodeV1(span);
+  }
+};
+var JSON_V2 = {
+  encode: function encode(span) {
+    return encodeV2(span);
+  }
+};
+
+var jsonEncoder = {
+	JSON_V1: JSON_V1,
+	JSON_V2: JSON_V2
+};
+
+var lib = {
+  Tracer: tracer,
+  createNoopTracer: noop,
+  TraceId: TraceId_1,
+  option: option,
+  Annotation: annotation_1,
+  InetAddress: InetAddress_1,
+  HttpHeaders: httpHeaders,
+  BatchRecorder: batchRecorder,
+  ConsoleRecorder: consoleRecorder,
+  ExplicitContext: explicitContext,
+  sampler: sampler,
+  Request: request,
+  Instrumentation: instrumentation,
+  model: model,
+  jsonEncoder: jsonEncoder
+};
+
+const { jsonEncoder: { JSON_V1: JSON_V1$1 } } = lib;
+
+class HttpLogger {
+  constructor({endpoint, headers = {}, httpInterval = 1000, jsonEncoder = JSON_V1$1, timeout = 0}) {
+    this.queue = [];
+    this.endpoint = endpoint;
+    this.jsonEncoder = jsonEncoder;
+
+    this.headers = Object.assign({ 'content-type': 'application/json' }, headers);
+
+    // req/res timeout in ms, it resets on redirect. 0 to disable (OS limit applies)
+    // only supported by node-fetch; silently ignored by browser fetch clients
+    // @see https://github.com/bitinn/node-fetch#fetch-options
+    this.timeout = timeout;
+
+    this.timer = setInterval(this.processQueue.bind(this), httpInterval);
+  }
+
+  logSpan(span) {
+    this.queue.push(this.jsonEncoder.encode(span));
+  }
+
+  processQueue() {
+    if (this.queue.length > 0) {
+      const postBody = `[${this.queue.join(',')}]`;
+      wx.request({
+        method: 'POST',
+        url: this.endpoint,
+        data: postBody,
+        header: this.headers,
+        timeout: this.timeout,
+        success(response) {
+          if (response.statusCode !== 202) {
+            console.error('Unexpected response while sending Zipkin data, status:' +
+              `${response.statusCode}, body: ${response.data}`);
+          }
+        },
+        fail(error) {
+          console.error('Error sending Zipkin data', error);
+        },
+      });
+
+      this.queue.length = 0;
+    }
+  }
+}
+
+const { Instrumentation: Instrumentation$1 } = lib;
+
+function wrapRequest({tracer, serviceName, remoteServiceName}) {
+  const instrumentation = new Instrumentation$1.HttpClient({tracer, serviceName, remoteServiceName});
+
+  return function zipkinWXRequest(config) {
+    tracer.scoped(() => {
+      const method = config.method || 'GET';
+      const zipkinOpts = instrumentation.recordRequest(config, config.url, method);
+      const traceId = tracer.id;
+
+      zipkinOpts.header = Object.assign({}, zipkinOpts.header, zipkinOpts.headers);
+
+      const { success, fail } = zipkinOpts;
+
+      const finalConfig = Object.assign({}, zipkinOpts, {
+        success(res) {
+          tracer.scoped(() => {
+            instrumentation.recordResponse(traceId, res.statusCode);
+          });
+          success(res);
+        },
+        fail(err) {
+          tracer.scoped(() => {
+            instrumentation.recordError(traceId, err);
+          });
+          fail(err);
+        },
+      });
+
+      wx.request(finalConfig);
+    });
+  };
+}
+
+var index = {
+  wrapRequest,
+  zipkin: Object.assign({}, lib, { HttpLogger })
+};
+
+return index;
+
+})));
