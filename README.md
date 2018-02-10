@@ -41,6 +41,6 @@ const zipkinRequest = wrapRequest({ tracer, serviceName: "小程序名称", remo
 ## 为什么要填两次「小程序名称」？
 https://github.com/openzipkin/zipkin-js/blob/master/packages/zipkin/src/instrumentation/httpClient.js#L11
 
-如果不填，默认就会使用`tracer`中的 localServiceName 字段
+如果不填`serviceName`字段，默认就会使用`tracer`中的 localServiceName 字段
 
 ###### [Zipkin.js](https://github.com/openzipkin/zipkin-js)
