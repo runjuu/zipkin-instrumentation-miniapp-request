@@ -1,4 +1,9 @@
 # zipkin-instrumentation-miniapp-request
+[![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/Runjuu/zipkin-instrumentation-miniapp-request/pulls)
+[![npm version](https://badge.fury.io/js/zipkin-instrumentation-miniapp-request.svg)](https://badge.fury.io/js/zipkin-instrumentation-miniapp-request)
+
+
 基于 [zipkin-instrumentation-fetch](https://github.com/openzipkin/zipkin-js/tree/master/packages/zipkin-instrumentation-fetch) 将 [wx.request](https://mp.weixin.qq.com/debug/wxadoc/dev/api/network-request.html) 重新封装了一次
 ```bash
 npm i zipkin-instrumentation-miniapp-request
