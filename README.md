@@ -4,7 +4,7 @@
 [![npm version](https://badge.fury.io/js/zipkin-instrumentation-miniapp-request.svg)](https://badge.fury.io/js/zipkin-instrumentation-miniapp-request)
 
 
-基于 [zipkin-instrumentation-fetch](https://github.com/openzipkin/zipkin-js/tree/master/packages/zipkin-instrumentation-fetch) 将 [wx.request](https://mp.weixin.qq.com/debug/wxadoc/dev/api/network-request.html) 重新封装了一次
+基于 [zipkin-instrumentation-fetch](https://github.com/openzipkin/zipkin-js/tree/master/packages/zipkin-instrumentation-fetch) 封装 [wx.request](https://mp.weixin.qq.com/debug/wxadoc/dev/api/network-request.html)
 ```bash
 npm i zipkin-instrumentation-miniapp-request
 ```
