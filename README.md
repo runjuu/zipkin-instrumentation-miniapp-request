@@ -4,7 +4,7 @@
 [![npm version](https://badge.fury.io/js/zipkin-instrumentation-miniapp-request.svg)](https://badge.fury.io/js/zipkin-instrumentation-miniapp-request)
 
 
-基于 [zipkin-instrumentation-fetch](https://github.com/openzipkin/zipkin-js/tree/master/packages/zipkin-instrumentation-fetch) 封装 [wx.request](https://mp.weixin.qq.com/debug/wxadoc/dev/api/network-request.html)
+基于 [zipkin-instrumentation-fetch](https://github.com/openzipkin/zipkin-js/tree/master/packages/zipkin-instrumentation-fetch) 对小程序的请求方法进行了封装
 ```bash
 npm i zipkin-instrumentation-miniapp-request
 ```
@@ -31,16 +31,11 @@ const tracer = new Tracer({
   localServiceName: '小程序名称'
 });
 
-const zipkinRequest = wrapRequest({ tracer, serviceName: "小程序名称", remoteServiceName: "服务器名称" });
-// zipkinRequest 使用方式和 wx.request 一样
+const zipkinRequest = wrapRequest({ tracer, remoteServiceName: "服务器名称" });
+// zipkinRequest 使用方式与 wx.request 一样
 ```
 
 ## 无法使用 npm ?
 直接将[打包好的文件](https://github.com/Runjuu/zipkin-instrumentation-miniapp-request/blob/master/index.js)放入小程序开发目录，使用相对路径进行引用
-
-## 为什么要填两次「小程序名称」？
-https://github.com/openzipkin/zipkin-js/blob/master/packages/zipkin/src/instrumentation/httpClient.js#L11
-
-如果不填`serviceName`字段，默认就会使用`tracer`中的 localServiceName 字段
 
 ###### [Zipkin.js](https://github.com/openzipkin/zipkin-js)
